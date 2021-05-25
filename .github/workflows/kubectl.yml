@@ -25,6 +25,13 @@ jobs:
         with:
           driver-opts: network=host
       -
+        name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      -
         name: Build missing images
         env:
           DOCKER_REPO: efrecon/kubectl
