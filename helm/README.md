@@ -1,11 +1,14 @@
 # `helm` in Docker
 
-This Docker image provides `helm` on top of the [krew] capable `kubectl`
-[image][kubectl-image] and [project][kubectl-project].
+This Docker [image] provides `helm` on top of the [krew] capable `kubectl`
+[image][kubectl-image]. It is automatically [generated] from of a [project] for
+building kubernetes-oriented Docker images.
 
+  [image]: https://hub.docker.com/r/efrecon/helm
   [krew]: https://krew.sigs.k8s.io/
   [kubectl-image]: https://hub.docker.com/r/efrecon/kubectl
-  [kubectl-project]: https://github.com/efrecon/docker-images/tree/master/kubectl
+  [generated]: https://github.com/efrecon/k8s-images/tree/master/helm
+  [project]: https://github.com/efrecon/k8s-images
 
 The image provides a number of build-time arguments that can be changed:
 

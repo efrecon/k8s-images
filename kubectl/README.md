@@ -1,10 +1,14 @@
 # Krew-Capable `kubectl` in Docker
 
-This Docker image provides a `kubectl` with a number of [`krew`][krew]
-[plugins].
+This Docker [image] provides a `kubectl` with a number of [`krew`][krew]
+[plugins]. It is automatically [generated] from of a [project] for building
+kubernetes-oriented Docker images.
 
+  [image]: https://hub.docker.com/r/efrecon/kubectl
   [krew]: https://krew.sigs.k8s.io/
   [plugins]: https://krew.sigs.k8s.io/plugins/
+  [generated]: https://github.com/efrecon/k8s-images/tree/master/kubectl
+  [project]: https://github.com/efrecon/k8s-images
 
 The image provides a number of build-time arguments that can be changed:
 

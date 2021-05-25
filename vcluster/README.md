@@ -1,8 +1,15 @@
-# `helm` in Docker
+# `vcluster` in Docker
 
-This Docker image provides the [`vcluster`][vcluster] CLI.
+This Docker [image] provides the [`vcluster`][vcluster] CLI in a Docker
+container. This image also has [helm] installed, as it is a required dependency.
+It is automatically [generated] from of a [project] for building
+kubernetes-oriented Docker images.
 
+  [image]: https://hub.docker.com/r/efrecon/vcluster
   [vcluster]: https://vcluster.com/
+  [helm]: https://helm.sh/
+  [generated]: https://github.com/efrecon/k8s-images/tree/master/vcluster
+  [project]: https://github.com/efrecon/k8s-images
 
 The image provides a number of build-time arguments that can be changed:
 
