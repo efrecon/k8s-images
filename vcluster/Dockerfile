@@ -11,9 +11,9 @@ LABEL MAINTAINER efrecon+github@gmail.com
 LABEL org.opencontainers.image.title="vcluster"
 LABEL org.opencontainers.image.description="vcluster client in Docker"
 LABEL org.opencontainers.image.authors="Emmanuel Frécon <efrecon+github@gmail.com>"
-LABEL org.opencontainers.image.url="https://github.com/efrecon/docker-images/vcluster"
-LABEL org.opencontainers.image.documentation="https://github.com/efrecon/docker-images/vcluster/README.md"
-LABEL org.opencontainers.image.source="https://github.com/efrecon/docker-images/vcluster/Dockerfile"
+LABEL org.opencontainers.image.url="https://github.com/efrecon/k8s-images/vcluster"
+LABEL org.opencontainers.image.documentation="https://github.com/efrecon/k8s-images/vcluster/README.md"
+LABEL org.opencontainers.image.source="https://github.com/efrecon/k8s-images/vcluster/Dockerfile"
 
 COPY bininstall/*.sh /usr/local/bin/
 

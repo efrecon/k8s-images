@@ -11,9 +11,9 @@ LABEL MAINTAINER efrecon+github@gmail.com
 LABEL org.opencontainers.image.title="helm"
 LABEL org.opencontainers.image.description="Helm in Docker"
 LABEL org.opencontainers.image.authors="Emmanuel Frécon <efrecon+github@gmail.com>"
-LABEL org.opencontainers.image.url="https://github.com/efrecon/docker-images/helm"
-LABEL org.opencontainers.image.documentation="https://github.com/efrecon/docker-images/helm/README.md"
-LABEL org.opencontainers.image.source="https://github.com/efrecon/docker-images/helm/Dockerfile"
+LABEL org.opencontainers.image.url="https://github.com/efrecon/k8s-images/helm"
+LABEL org.opencontainers.image.documentation="https://github.com/efrecon/k8s-images/helm/README.md"
+LABEL org.opencontainers.image.source="https://github.com/efrecon/k8s-images/helm/Dockerfile"
 
 COPY bininstall/*.sh /usr/local/bin/
 

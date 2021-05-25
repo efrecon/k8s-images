@@ -21,9 +21,9 @@ LABEL MAINTAINER efrecon+github@gmail.com
 LABEL org.opencontainers.image.title="kubectl"
 LABEL org.opencontainers.image.description="Krew-Capable kubectl in Docker"
 LABEL org.opencontainers.image.authors="Emmanuel Frécon <efrecon+github@gmail.com>"
-LABEL org.opencontainers.image.url="https://github.com/efrecon/docker-images/kubectl"
-LABEL org.opencontainers.image.documentation="https://github.com/efrecon/docker-images/kubectl/README.md"
-LABEL org.opencontainers.image.source="https://github.com/efrecon/docker-images/kubectl/Dockerfile"
+LABEL org.opencontainers.image.url="https://github.com/efrecon/k8s-images/kubectl"
+LABEL org.opencontainers.image.documentation="https://github.com/efrecon/k8s-images/kubectl/README.md"
+LABEL org.opencontainers.image.source="https://github.com/efrecon/k8s-images/kubectl/Dockerfile"
 
 COPY bininstall/*.sh /usr/local/bin/
 
