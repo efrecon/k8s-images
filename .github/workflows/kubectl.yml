@@ -42,10 +42,4 @@ jobs:
         env:
           DOCKER_REPO: efrecon/kubectl
           SOURCE_COMMIT: ${{ github.sha }}
-          DOCKER_USERNAME: ${{ github.repository_owner }}
-          DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          printf %s\\n "$DOCKER_PASSWORD" | docker login -u $DOCKER_USERNAME --password-stdin ghcr.io \
-            && cd kubectl \
-            && ./hooks/push \
-            && docker logout
+        run: cd kubectl && ./hooks/push
