@@ -34,12 +34,12 @@ jobs:
       -
         name: Build missing images
         env:
-          DOCKER_REPO: efrecon/kubectl
+          DOCKER_REPO: ghcr.io/efrecon/kubectl
           SOURCE_COMMIT: ${{ github.sha }}
         run: cd kubectl && ./hooks/build
       -
         name: Push updated images
         env:
-          DOCKER_REPO: efrecon/kubectl
+          DOCKER_REPO: ghcr.io/efrecon/kubectl
           SOURCE_COMMIT: ${{ github.sha }}
         run: cd kubectl && ./hooks/push
