@@ -1,5 +1,6 @@
 ARG K8S_VERSION=v1.21.1
-FROM efrecon/kubectl:${K8S_VERSION}
+ARG DOCKER_REGROOT=docker.io
+FROM ${DOCKER_REGROOT}/efrecon/kubectl:${K8S_VERSION}
 
 # Version for helm. When version is "latest", it will be actively replaced by
 # the latest version from gihub.

@@ -1,5 +1,6 @@
 ARG HELM_VERSION=v3.5.4
-FROM efrecon/helm:${HELM_VERSION}
+ARG DOCKER_REGROOT=docker.io
+FROM ${DOCKER_REGROOT}/efrecon/helm:${HELM_VERSION}
 
 # Version for helm. When version is "latest", it will be actively replaced by
 # the latest version from gihub.

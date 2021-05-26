@@ -42,6 +42,15 @@ if [ -z "${K8S_VERSION:-}" ]; then
   fi
 fi
 
+# Compute which registry we use to pass this as a build argument below
+DOCKER_REGROOT=$(printf %s\\n "$DOCKER_REPO" | cut -d / -f 1)
+if ! printf %s\\n "$DOCKER_REGROOT" | grep -q '\.'; then
+  echo "Automatically rooting at Docker Hub"
+  DOCKER_REGROOT=docker.io
+else
+  echo "Using registry $DOCKER_REGROOT"
+fi
+
 # Login at the Docker hub to be able to access info about the image.
 token=$(img_auth "$DOCKER_REPO")
 
@@ -64,6 +73,7 @@ for tag in $(gh_tags); do
       docker build \
         --build-arg HELM_VERSION="$tag" \
         --build-arg K8S_VERSION="$K8S_VERSION" \
+        --build-arg DOCKER_REGROOT="$DOCKER_REGROOT" \
         --tag "${DOCKER_REPO}:$tag" \
         --label "org.opencontainers.image.revision=$SOURCE_COMMIT" \
         .
