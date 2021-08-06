@@ -1,4 +1,4 @@
-name: ghcr
+name: kubectl
 
 on:
   workflow_dispatch:
