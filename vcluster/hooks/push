@@ -9,24 +9,12 @@ GH_API=https://api.github.com/
 GH_PROJECT=loft-sh/vcluster
 
 # rx for matching release versions of helm/vcluster
-SEMVER_SHARP='v[0-9]+\.[0-9]+\.[0-9]+'
 SEMVER_ALL='v[0-9]+\.[0-9]+\.[0-9]+(-[a-z]+\.[0-9]+)?'
 
 # shellcheck disable=SC1091
 . "$(dirname "$0")/reg-tags/image_tags.sh"
 
-gh_tags() {
-  download=$(_img_downloader)
-  if [ -z "$download" ]; then
-    return 1
-  else
-    $download "${GH_API%/}/repos/$1/releases" |
-      grep -oE "[[:space:]]*\"tag_name\"[[:space:]]*:[[:space:]]*\"($2)\"" |
-      sed -E "s/[[:space:]]*\"tag_name\"[[:space:]]*:[[:space:]]*\"($2)\"/\\1/"
-  fi
-}
-
-for tag in $(gh_tags "$GH_PROJECT" "$SEMVER_ALL"); do
+for tag in $(github_releases --release "$SEMVER_ALL" "$GH_PROJECT" | sort); do
   if docker image inspect "${DOCKER_REPO}:$tag" >/dev/null 2>&1; then
     echo "============== Pushing ${DOCKER_REPO}:$tag"
     docker push "${DOCKER_REPO}:$tag"

@@ -10,7 +10,6 @@ SOURCE_COMMIT=${SOURCE_COMMIT:-$(git log --no-decorate|grep '^commit'|head -n 1|
 # efrecon/kubectl image at this version at the time of the build.
 HELM_VERSION=
 
-GH_API=https://api.github.com/
 GH_PROJECT=loft-sh/vcluster
 
 # rx for matching release versions of helm/vcluster
@@ -20,18 +19,7 @@ SEMVER_ALL='v[0-9]+\.[0-9]+\.[0-9]+(-[a-z]+\.[0-9]+)?'
 # shellcheck disable=SC1091
 . "$(dirname "$0")/reg-tags/image_tags.sh"
 
-gh_tags() {
-  download=$(_img_downloader)
-  if [ -z "$download" ]; then
-    return 1
-  else
-    $download "${GH_API%/}/repos/$1/releases" |
-      grep -oE "[[:space:]]*\"tag_name\"[[:space:]]*:[[:space:]]*\"($2)\"" |
-      sed -E "s/[[:space:]]*\"tag_name\"[[:space:]]*:[[:space:]]*\"($2)\"/\\1/"
-  fi
-}
-
-[ -z "$HELM_VERSION" ] && HELM_VERSION=$(gh_tags "helm/helm" "$SEMVER_SHARP" | head -n 1)
+[ -z "$HELM_VERSION" ] && HELM_VERSION=$(github_releases --release "$SEMVER_SHARP" "helm/helm" | head -n 1)
 
 # Compute which registry we use to pass this as a build argument below
 DOCKER_REGROOT=$(printf %s\\n "$DOCKER_REPO" | cut -d / -f 1)
@@ -46,7 +34,7 @@ fi
 token=$(img_auth "$DOCKER_REPO")
 
 echo "============== Gettings latest releases for $GH_PROJECT at github"
-for tag in $(gh_tags "$GH_PROJECT" "$SEMVER_ALL"); do
+for tag in $(github_releases --release "$SEMVER_ALL" "$GH_PROJECT"); do
   # Get the revision out of the org.opencontainers.image.revision label, this
   # will be the label where we store information about this repo (it cannot be
   # the tag, since we tag as the base image).

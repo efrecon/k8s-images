@@ -15,22 +15,10 @@ K8S_VERSION=
 
 # You shouldn't really need to have to modify the following variables.
 K8S_DWROOT=https://storage.googleapis.com/kubernetes-release/release
-GH_API=https://api.github.com/
 GH_PROJECT=helm/helm
 
 # shellcheck disable=SC1091
 . "$(dirname "$0")/reg-tags/image_tags.sh"
-
-gh_tags() {
-  download=$(_img_downloader)
-  if [ -z "$download" ]; then
-    return 1
-  else
-    $download "${GH_API%/}/repos/${GH_PROJECT}/releases" |
-      grep -oE '[[:space:]]*"tag_name"[[:space:]]*:[[:space:]]*"(v[0-9]+\.[0-9]+\.[0-9]+)"' |
-      sed -E 's/[[:space:]]*"tag_name"[[:space:]]*:[[:space:]]*"(v[0-9]+\.[0-9]+\.[0-9]+)"/\1/'
-  fi
-}
 
 if [ -z "${K8S_VERSION:-}" ]; then
   download=$(_img_downloader)
@@ -55,7 +43,7 @@ fi
 token=$(img_auth "$DOCKER_REPO")
 
 echo "============== Gettings latest releases for $GH_PROJECT at github"
-for tag in $(gh_tags); do
+for tag in $(github_releases "$GH_PROJECT"); do
   if [ "$(img_version "${tag#v}")" -ge "$(img_version "$MINVER")" ]; then
     # Get the revision out of the org.opencontainers.image.revision label, this
     # will be the label where we store information about this repo (it cannot be
