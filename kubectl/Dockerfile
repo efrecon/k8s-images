@@ -33,7 +33,12 @@ RUN if [ "$K8S_VERSION" = "stable" ]; then K8S_VERSION=$(wget -q -O - "${K8S_DWR
 
 # Install krew and a number of plugins
 RUN apk --no-cache add git \
-    && tarinstall.sh -v -x krew-linux_amd64 -b kubectl-krew "${KREW_DWROOT%/}/${KREW_VERSION}/download/krew.tar.gz" \
+    && if [ "$KREW_VERSION" = "latest" ]; then KREW_VERSION=$(wget -q  -O - "$KREW_DWROOT"|grep -o 'href="/kubernetes-sigs/krew/releases/tag/v[0-9].[0-9]*.[0-9]*\"' | grep -v no-underline | head -n 1 | cut -d '"' -f 2 | awk '{n=split($NF,a,"/");print a[n]}' | awk 'a !~ $0{print}; {a=$0}'); fi \
+    && if wget --spider "${KREW_DWROOT%/}/download/${KREW_VERSION}/krew-linux_amd64.tar.gz" 2>/dev/null; then \
+         tarinstall.sh -v -x krew-linux_amd64 -b kubectl-krew "${KREW_DWROOT%/}/download/${KREW_VERSION}/krew-linux_amd64.tar.gz"; \
+       else \
+         tarinstall.sh -v -x krew-linux_amd64 -b kubectl-krew "${KREW_DWROOT%/}/download/${KREW_VERSION}/krew.tar.gz"; \
+       fi \
     && mkdir -p "${KREW_ROOT}" \
     && kubectl krew install ${KREW_PLUGINS}
 
