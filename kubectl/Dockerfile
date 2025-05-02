@@ -3,7 +3,7 @@ FROM alpine:latest
 # stable will be automatically be replaced with the latest stable version.
 # Otherwise, this should be a version, with or without leading v.
 ARG K8S_VERSION=stable
-ARG K8S_DWROOT=https://storage.googleapis.com/kubernetes-release/release
+ARG K8S_DWROOT=https://dl.k8s.io/release
 
 # latest is the default, otherwise this should be the version of krew with the
 # leading v.
